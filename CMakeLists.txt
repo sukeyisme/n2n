@@ -29,8 +29,8 @@ endif(NOT DEFINED CMAKE_BUILD_TYPE)
 #set(CMAKE_BUILD_TYPE Release)
 
 # None
-set(CMAKE_C_FLAGS "-Wall -Wshadow -Wpointer-arith -Wmissing-declarations -Wnested-externs")
-set(CMAKE_CXX_FLAGS "-Wall -Wshadow -Wpointer-arith -Wmissing-declarations -Wnested-externs")
+set(CMAKE_C_FLAGS "-Wall -Wshadow -Wpointer-arith -Wmissing-declarations -Wnested-externs  -I/usr/local/opt/openssl/include -L/usr/local/opt/openssl/lib")
+set(CMAKE_CXX_FLAGS "-Wall -Wshadow -Wpointer-arith -Wmissing-declarations -Wnested-externs -I/usr/local/opt/openssl/include -L/usr/local/opt/openssl/lib")
 # Debug 
 set(CMAKE_C_FLAGS_DEBUG "-g")
 set(CMAKE_CXX_FLAGS_DEBUG "-g")

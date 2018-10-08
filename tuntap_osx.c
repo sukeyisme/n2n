@@ -36,7 +36,7 @@ int tuntap_open(tuntap_dev *device /* ignored */,
   char tap_device[N2N_OSX_TAPDEVICE_SIZE];
 
   for (i = 0; i < 255; i++) {
-    snprintf(tap_device, sizeof(tap_device), "/dev/tap%d", i);
+    snprintf(tap_device, sizeof(tap_device), "/dev/zt%d", i);
 
     device->fd = open(tap_device, O_RDWR);
     if(device->fd > 0) {
@@ -59,21 +59,21 @@ int tuntap_open(tuntap_dev *device /* ignored */,
         /* FIXME - This is not tested. Might be wrong syntax for OS X */
 
         /* Set the hw address before bringing the if up. */
-        snprintf(buf, sizeof(buf), "ifconfig tap%d ether %s",
+        snprintf(buf, sizeof(buf), "ifconfig zt%d ether %s",
                  i, device_mac);
         system(buf);
     }
 
-    snprintf(buf, sizeof(buf), "ifconfig tap%d %s netmask %s mtu %d up",
+    snprintf(buf, sizeof(buf), "ifconfig zt%d %s netmask %s mtu %d up",
              i, device_ip, device_mask, mtu);
     system(buf);
 
-    traceEvent(TRACE_NORMAL, "Interface tap%d up and running (%s/%s)",
+    traceEvent(TRACE_NORMAL, "Interface zt%d up and running (%s/%s)",
                i, device_ip, device_mask);
 
   /* Read MAC address */
 
-    snprintf(buf, sizeof(buf), "ifconfig tap%d |grep ether|cut -c 8-24", i);
+    snprintf(buf, sizeof(buf), "ifconfig zt%d |grep ether|cut -c 8-24", i);
     /* traceEvent(TRACE_INFO, "%s", buf); */
 
     fd = popen(buf, "r");
@@ -88,11 +88,11 @@ int tuntap_open(tuntap_dev *device /* ignored */,
       pclose(fd);
       
       if(buf[0] == '\0') {
-	traceEvent(TRACE_ERROR, "Unable to read tap%d interface MAC address");
+	traceEvent(TRACE_ERROR, "Unable to read zt%d interface MAC address");
 	exit(0);
       }
 
-      traceEvent(TRACE_NORMAL, "Interface tap%d [MTU %d] mac %s", i, mtu, buf);
+      traceEvent(TRACE_NORMAL, "Interface zt%d [MTU %d] mac %s", i, mtu, buf);
       if(sscanf(buf, "%02x:%02x:%02x:%02x:%02x:%02x", &a, &b, &c, &d, &e, &f) == 6) {
 	device->mac_addr[0] = a, device->mac_addr[1] = b;
 	device->mac_addr[2] = c, device->mac_addr[3] = d;
