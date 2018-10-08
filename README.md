@@ -1,3 +1,11 @@
+Build && install
+----------------
+
+```
+$ brew install openssl
+$ mkdir build && cd build && cmake  -DOPENSSL_ROOT_DIR=/usr/local/opt/openssl .. && make
+```
+
 Edge node
 ---------
 
@@ -6,11 +14,11 @@ community.
 
 Enable the edge process
 ```
-$ sudo ./edge -d n2n0 -c mynetwork -k encryptme -u 99 -g 99 -m 3C:A0:12:34:56:78 -a 1.2.3.4 -l a.b.c.d:xyw
+$ sudo edge -d n2n0 -c mynetwork -k encryptme -u 99 -g 99 -m 3C:A0:12:34:56:78 -a 1.2.3.4 -l a.b.c.d:xyw
 ```
 or
 ```
-$ N2N_KEY=encryptme sudo ./edge -d n2n0 -c mynetwork -u 99 -g 99 -m 3C:A0:12:34:56:78 -a 1.2.3.4 -l a.b.c.d:xyw
+$ N2N_KEY=encryptme sudo edge -d n2n0 -c mynetwork -u 99 -g 99 -m 3C:A0:12:34:56:78 -a 1.2.3.4 -l a.b.c.d:xyw
 ```
 
 By defaul the edge will run in background but you can use the `-f` option to keep it in foreground.
